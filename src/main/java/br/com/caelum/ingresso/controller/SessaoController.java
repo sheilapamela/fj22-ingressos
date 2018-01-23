@@ -19,7 +19,7 @@ import br.com.caelum.ingresso.model.form.SessaoForm;
 
 
 @Controller
-public class SessaoController {
+public class SessaoController {	
 	
 	@Autowired
 	private SalaDao salaDao;
@@ -33,8 +33,11 @@ public class SessaoController {
 	
 	@GetMapping("/admin/sessao")
 	public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form){
-		ModelAndView modelAndView = new ModelAndView("sessao/sessao");
 		
+		form.setSalaId(salaId);
+		
+		ModelAndView modelAndView = new ModelAndView("sessao/sessao");
+				
 		modelAndView.addObject("sala", salaDao.findOne(salaId));
 		modelAndView.addObject("filmes", filmeDao.findAll());
 		modelAndView.addObject("form", form);
@@ -42,7 +45,7 @@ public class SessaoController {
 		return modelAndView;
 	}
 	
-	@PostMapping(value = "/admin/Sessao")
+	@PostMapping(value = "/admin/sessao")
 	@Transactional
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result){
 		
