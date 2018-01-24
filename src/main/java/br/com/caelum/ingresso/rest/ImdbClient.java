@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.caelum.ingresso.model.DetalhesDoFilme;
 import br.com.caelum.ingresso.model.Filme;
 
 @Service
@@ -15,7 +14,7 @@ public class ImdbClient {
 	
 	private Logger logger = Logger.getLogger(ImdbClient.class);
 	
-	public Optional<DetalhesDoFilme>  request(Filme filme){
+	public <T> Optional<T>  request(Filme filme, Class<T> tClass){
 		
 		RestTemplate client = new RestTemplate();
 		
@@ -24,8 +23,8 @@ public class ImdbClient {
 		String url = String.format("https://imdb-fj22.herokuapp.com/imdb?title=%s", titulo);
 		
 		try {
-			 DetalhesDoFilme detalhesDoFilme = client.getForObject(url, DetalhesDoFilme.class);
-			 return Optional.of(detalhesDoFilme);
+			
+			 return Optional.of(client.getForObject(url, tClass));
 			 
 		} catch (RestClientException e) {
 			
