@@ -57,6 +57,14 @@ public class Sessao {
 		this.id = id;
 	}
 
+	public Set<Ingresso> getIngressos() {
+		return ingressos;
+	}
+
+	public void setIngressos(Set<Ingresso> ingressos) {
+		this.ingressos = ingressos;
+	}
+
 	public LocalTime getHorario() {
 		return horario;
 	}
